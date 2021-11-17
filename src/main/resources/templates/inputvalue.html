@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта Карно Х</title>
+</head>
+<body>
+<form action="solve-map" method="post">
+    <p><label>Количество переменных:</label></p>
+    <p><input type="radio" name="variable_number" th:value="${type}" checked/><span th:text="${type}"></span></p>
+    <table>
+        <thead>
+        <tr>
+            <th></th><th th:each="header : ${headers}" th:text="${header}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row : ${rows}">
+            <td th:text="${rows.indexOf(row)}"></td>
+            <td th:each="element :${row}" th:text="${element}"></td>
+            <td><input type="number" max="1" min="0" th:name="${rows.indexOf(row)}" required></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" value="Send">
+</form>
+</body>
+</html>

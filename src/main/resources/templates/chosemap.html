@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта Карно Х</title>
+</head>
+<body>
+    <form action="input-value" method="post">
+        <p><label>Количество переменных:</label></p>
+        <p th:each="num : ${numbers}">
+            <input type="radio" name="variable_number" th:value="${num}"
+            th:checked="${num} == ${type}"/><span th:text="${num}"></span>
+        </p>
+        <input type="submit" value="Send">
+    </form>
+</body>
+</html>

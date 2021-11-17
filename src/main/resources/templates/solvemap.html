@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта Карно Х</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<canvas id="MyCanvas" width="310" height="310"></canvas>
+<script>
+    const type = [[${type}]];
+    const values = [[${values_positions}]];
+    const areas = [[${all_areas}]];
+</script>
+<script type="text/javascript" th:src="@{/js/drawmap.js}">
+<!-- Attempt to load js file -->
+</script>
+<div id="SOP">
+    <p>Совершенная дизъюнктивная нормальная форма:</p>
+    <ul th:each="step : ${SOP_solution}">
+        <p th:class="operator_head">Оператор №<span th:text="${SOP_solution.indexOf(step) + 1}"></span></p>
+        <li th:each="line : ${step}"><span th:text="${line}"></span></li>
+    </ul>
+    <p>
+        <span>Результат: </span>
+        <span th:each="opt : ${SOP_operators}">
+            <span th:text="${opt}"></span>
+            <span th:if="${SOP_operators.indexOf(opt) != SOP_operators.size - 1}">+</span>
+        </span>
+    </p>
+</div>
+<div id="POS">
+    <p>Совершенная конъюнктивная нормальная форма:</p>
+    <ul th:each="step : ${POS_solution}">
+        <p th:class="operator_head">Оператор №<span th:text="${POS_solution.indexOf(step) + 1}"></span></p>
+        <li th:each="line : ${step}"><span th:text="${line}"></span></li>
+    </ul>
+    <p>
+        <span>Результат: </span>
+        <span th:each="opt : ${POS_operators}">
+            (<span th:text="${opt}"></span>)
+        </span>
+    </p>
+</div>
+</body>
+</html>
