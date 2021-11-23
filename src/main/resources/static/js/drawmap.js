@@ -1,8 +1,11 @@
 <!-- Draw a blank map -->
 let c = $("canvas")[0].getContext("2d");
 c.font = "20px Arial";
-c.fillText("AB",190,35);
+
 if (type >= 2){
+    if (type == 2) {
+        c.fillText("AB",190,35);
+    }
     c.fillText("00", 115, 85);
     c.fillText("01", 165, 85);
     c.fillText("11", 215, 85);
@@ -18,9 +21,12 @@ if (type >= 2){
     c.moveTo(50,150); c.lineTo(300,150);
     c.stroke();
     if (type >= 3) {
-        if (type == 3) c.fillText("CD",15,160);
-        c.fillText("00",65,135);
-        c.fillText("01",65,185);
+        if (type == 3) {
+            c.fillText("BC",190,35);
+            c.fillText("A",15,160);
+            c.fillText("0",65,135);
+            c.fillText("1",65,185);
+        }
         c.moveTo(50,150); c.lineTo(50,200);
         c.moveTo(100,150); c.lineTo(100,200);
         c.moveTo(150,150); c.lineTo(150,200);
@@ -30,7 +36,10 @@ if (type >= 2){
         c.moveTo(50,200); c.lineTo(300,200);
         c.stroke();
         if (type == 4) {
-            c.fillText("CD",15,210);
+            c.fillText("CD",190,35);
+            c.fillText("AB",15,210);
+            c.fillText("00",65,135);
+            c.fillText("01",65,185);
             c.fillText("11", 65, 235);
             c.fillText("10", 65, 285);
             c.moveTo(50, 200); c.lineTo(50, 300);
@@ -69,6 +78,6 @@ for (let i = 0; i < areas.length; i++) {
         c.stroke();
     }
     $(document).ready(function(){
-        $(".operator_head").eq(i).css("color",color);
+        $(".accordion-button").eq(i).css("color",color);
     })
 }

@@ -7,8 +7,8 @@ public class DrawKMap extends KMap {
     public static HashMap<String,Byte> getCoordinates(byte number) {
         HashMap<String,Byte> coordinates = new HashMap<>();
 
-        byte row = (byte) (number % 4);
-        byte collum = (byte) (number / 4);
+        byte row = (byte) (number / 4);
+        byte collum = (byte) (number % 4);
 
         if (row == 3) row = 2;
         else if (row == 2) row = 3;
@@ -28,19 +28,18 @@ public class DrawKMap extends KMap {
         terms.add(minterm);
         for (int i = 0; i < terms.size(); i++) {
             Term term = terms.get(i);
-            if (term.get(0) == -1 && term.get(1) == 0) {
-                term.set(0, 0);
-                terms.set(i, term);
-                Term aterm = (Term) term.clone();
-                aterm.set(0, 1);
-                terms.add(i + 1, aterm);
-            }
-            if (term.size() == 4 &&
-                    (term.get(term.size() - 1) == 0 && term.get(term.size() - 2) == -1)) {
+            if (term.get(term.size() - 1) == 0 && term.get(term.size() - 2) == -1) {
                 term.set(term.size() - 2, 0);
                 terms.set(i, term);
                 Term aterm = (Term) term.clone();
                 aterm.set(term.size() - 2, 1);
+                terms.add(i + 1, aterm);
+            }
+            if (term.size() == 4 && (term.get(0) == -1 && term.get(1) == 0)) {
+                term.set(0, 0);
+                terms.set(i, term);
+                Term aterm = (Term) term.clone();
+                aterm.set(0, 1);
                 terms.add(i + 1, aterm);
             }
         }

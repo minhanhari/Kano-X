@@ -23,7 +23,11 @@ public class MapController {
         allParams.remove("variable_number");
         Vector<Byte> array = new Vector<>();
         for (int i = 0; i < amap.getSize(); i++) {
-            array.add(Byte.valueOf(allParams.get(String.valueOf(i))));
+            String temp = allParams.get(String.valueOf(i));
+            if (!temp.equals(""))
+                array.add(Byte.valueOf(allParams.get(String.valueOf(i))));
+            else
+                array.add((byte) 0);
         }
 
         amap.setValue(array);;

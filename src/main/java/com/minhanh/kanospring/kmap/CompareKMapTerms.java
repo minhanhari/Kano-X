@@ -128,18 +128,18 @@ public class CompareKMapTerms extends SetKMap{
             if(term.get(i) == 0) {
                 operator.append((char) digit); //add minterm
                 if (Objects.equals(method, "SOP")) operator.append((char) 39);    //add dash
-                else if (method.equals("POS")) operator.append(" + ");
+                else if (method.equals("POS")) operator.append("+");
             }
             //undashed minterms
             if(term.get(i) == 1) {
                 operator.append((char) digit); //add minterm
                 if (Objects.equals(method, "POS")) {
                     operator.append((char) 39);
-                    operator.append(" + ");
+                    operator.append("+");
                 }
             }
         }
-        if (method.equals("POS")) operator.delete(operator.length() - 3, operator.length());
+        if (method.equals("POS")) operator.deleteCharAt(operator.length() - 1);
         return String.valueOf(operator);
     }
 
@@ -151,15 +151,15 @@ public class CompareKMapTerms extends SetKMap{
             line.append((char) digit);
 
             if (term.get(i) == 0) {
-                line.append(" : не изменилось занчение 0 | ");
+                line.append(" : не изменилось значение 0 | ");
                 line.append((char) digit);
                 if (method.equals("SOP")) line.append((char) 39);
             } else if (term.get(i) == 1) {
-                line.append(" : не изменилось занчение 1 | ");
+                line.append(" : не изменилось значение 1 | ");
                 line.append((char) digit);
                 if (method.equals("POS")) line.append((char) 39);
             }else if (term.get(i) == -1) {
-                line.append(" : изменилось занчение.");
+                line.append(" : изменилось значение.");
             }
             result.add(String.valueOf(line));
         }
