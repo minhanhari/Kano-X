@@ -63,8 +63,7 @@ for (let i = 0; i < values.length; i++) {
 }
 <!-- Draw box around minterm -->
 for (let i = 0; i < areas.length; i++) {
-    let color = 'rgb(' + Math.floor(255 - 50 * i) + ', ' +
-        Math.floor(0 + 50 * i) + ', 0)';
+    let color = "#" + Math.floor(Math.random()*16777215).toString(16);;
 
     c.beginPath();
     for (let j = 0; j < areas[i].length; j++) {
@@ -78,6 +77,6 @@ for (let i = 0; i < areas.length; i++) {
         c.stroke();
     }
     $(document).ready(function(){
-        $(".accordion-button").eq(i).css("color",color);
+        $(".minterm-color").eq(i).css("background-color",color);
     })
 }

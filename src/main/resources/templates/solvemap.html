@@ -30,6 +30,7 @@
                     <h5 th:class="accordion-header" th:id="'headingSOP' + ${SOP_solution.indexOf(step) + 1}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" th:data-bs-target="'#collapseSOP' + ${SOP_solution.indexOf(step) + 1}" th:aria-controls="'collapseSOP' + ${SOP_solution.indexOf(step) + 1}">
                             Оператор №<span th:text="${SOP_solution.indexOf(step) + 1}"></span>
+                            <div class="minterm-color" style="height: 20px; width: 20px; border-radius: 4px; margin: 4px"></div>
                         </button>
                     </h5>
                     <div th:id="'collapseSOP' + ${SOP_solution.indexOf(step) + 1}" class="accordion-collapse collapse show" th:aria-labelledby="'headingSOP' + ${SOP_solution.indexOf(step) + 1}">
@@ -51,6 +52,7 @@
                     <h5 th:class="accordion-header" th:id="'headingPOS' + ${POS_solution.indexOf(step) + 1}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapsePOS' + ${POS_solution.indexOf(step) + 1}" th:aria-controls="'collapsePOS' + ${POS_solution.indexOf(step) + 1}">
                             Оператор №<span th:text="${POS_solution.indexOf(step) + 1}"></span>
+                            <div class="minterm-color" style="height: 20px; width: 20px; border-radius: 4px; margin: 4px"></div>
                         </button>
                     </h5>
                     <div th:id="'collapsePOS' + ${POS_solution.indexOf(step) + 1}" class="accordion-collapse collapse show" th:aria-labelledby="'headingPOS' + ${POS_solution.indexOf(step) + 1}">
