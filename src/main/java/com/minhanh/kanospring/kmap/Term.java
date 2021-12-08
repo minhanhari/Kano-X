@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Vector;
 
 public class Term extends Vector<Integer> {
+    /** Extract all terms element from minterm */
     public VectorTerm extract() {
         VectorTerm full_terms = new VectorTerm();
         full_terms.add(this);
@@ -30,13 +31,24 @@ public class Term extends Vector<Integer> {
         }
         return flag;
     }
-    
+
     public byte toNumber() {
         byte number = 0;
         for (byte i = 0; i < size(); i++) {
             number += get(i) * Math.pow(2, size() - i - 1);
         }
         return number;
+    }
+
+    /** Return term from number */
+    static Term toTerm(int number, int map_type) {
+        Term result = new Term();
+        int x = number;
+        for (byte j = 0; j < map_type; j++) {
+            result.add(0, x%2);
+            x = x / 2;
+        }
+        return result;
     }
 }
 

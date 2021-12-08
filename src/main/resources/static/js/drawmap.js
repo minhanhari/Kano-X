@@ -63,7 +63,7 @@ for (let i = 0; i < values.length; i++) {
 }
 <!-- Draw box around minterm -->
 for (let i = 0; i < areas.length; i++) {
-    let color = "#" + Math.floor(Math.random()*16777215).toString(16);;
+    let color = "#" + Math.floor((i+1)*1677721).toString(16);;
 
     c.beginPath();
     for (let j = 0; j < areas[i].length; j++) {

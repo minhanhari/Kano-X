@@ -7,40 +7,12 @@ public class CompareKMapTerms extends SetKMap{
 
     /**
      * Function minimize process by:
-     * 1- Save ones ones with its coordinates
-     *    in (vector) terms with "setTerms" function
-     * 2- compare terms with "compare" Function
-     * 3- Represent comparelification as alphabetical terms with posToTerm
-     * 4- Filter unfull and unempty kmaps to getting essential
-     *    terms and remove others
+     * 1- compare terms with "compare" Function
+     * 2- Represent comparelification as alphabetical terms with 'operator'
+     * 3- Get solutions with 'solution' and 'step'
      */
-    public Vector<String> getOperators(String method) {
-        Vector<String> result = new Vector<>();
 
-        if(ones.isEmpty()) {
-            result.add("0");
-        } else if(zeros.isEmpty()) {
-            result.add("1");
-        } else {
-            VectorTerm terms = compare(method);
-            for (Term term : terms)  result.add(operator(term, method));
-        }
-
-        return result;
-    }
-
-    public Vector<Vector<String>> solution(String method) {
-        Vector<Vector<String>> result = new Vector<>();
-
-        if (ones.isEmpty() || zeros.isEmpty()) return null;
-
-        VectorTerm terms = compare(method);
-        for (Term term : terms) result.add(step(term, method));
-
-        return result;
-    }
-
-    public VectorTerm compare(String method){
+    public VectorTerm minimized(String method){
         Vector<Byte> positions;
         if (method.equals("SOP")) positions = ones;
         else if (method.equals("POS")) positions = zeros;
@@ -116,56 +88,5 @@ public class CompareKMapTerms extends SetKMap{
             if(!hascompare.get(i))  leftover_terms.add(terms.get(i));
         }
         return leftover_terms;
-    }
-
-    private String operator(Term term, String method) {
-        StringBuilder operator = new StringBuilder();
-        //minterms loop
-        for(byte i = 0; i < term.size(); i++) {
-            int digit = i + 65;
-
-            //dashed minterms
-            if(term.get(i) == 0) {
-                operator.append((char) digit); //add minterm
-                if (Objects.equals(method, "SOP")) operator.append((char) 39);    //add dash
-                else if (method.equals("POS")) operator.append("+");
-            }
-            //undashed minterms
-            if(term.get(i) == 1) {
-                operator.append((char) digit); //add minterm
-                if (Objects.equals(method, "POS")) {
-                    operator.append((char) 39);
-                    operator.append("+");
-                }
-            }
-        }
-        if (method.equals("POS")) operator.deleteCharAt(operator.length() - 1);
-        return String.valueOf(operator);
-    }
-
-    private Vector<String> step(Term term, String method) {
-        Vector<String> result = new Vector<>();
-        for (int i = 0; i < term.size(); i++) {
-            int digit = i + 65;
-            StringBuilder line = new StringBuilder(" - ");
-            line.append((char) digit);
-
-            if (term.get(i) == 0) {
-                line.append(" : не изменилось значение 0 | ");
-                line.append((char) digit);
-                if (method.equals("SOP")) line.append((char) 39);
-            } else if (term.get(i) == 1) {
-                line.append(" : не изменилось значение 1 | ");
-                line.append((char) digit);
-                if (method.equals("POS")) line.append((char) 39);
-            }else if (term.get(i) == -1) {
-                line.append(" : изменилось значение.");
-            }
-            result.add(String.valueOf(line));
-        }
-        String operator = "Оператор : " + operator(term, method);
-        result.add(operator);
-
-        return result;
     }
 }

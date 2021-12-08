@@ -1,6 +1,5 @@
 package com.minhanh.kanospring.controllers;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
@@ -8,8 +7,6 @@ import com.minhanh.kanospring.kmap.DrawKMap;
 import com.minhanh.kanospring.kmap.KMap;
 import com.minhanh.kanospring.kmap.VectorTerm;
 import com.minhanh.kanospring.kmap.Term;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +21,14 @@ public class MapController {
         Vector<Byte> array = new Vector<>();
         for (int i = 0; i < amap.getSize(); i++) {
             String temp = allParams.get(String.valueOf(i));
-            if (!temp.equals(""))
-                array.add(Byte.valueOf(allParams.get(String.valueOf(i))));
+            if (!temp.equals("")) {
+                if (!(temp.equals("0") || temp.equals("1"))) {
+                    model.addAttribute("error", "Invalid number!");
+                    return "forward:/set-map";
+                }
+                else
+                    array.add(Byte.valueOf(temp));
+            }
             else
                 array.add((byte) 0);
         }
@@ -41,6 +44,7 @@ public class MapController {
         //For drawing KMap
         model.addAttribute("type",amap.type);
 
+        //Return value (0 or 1) of each position on map
         Vector<String> cells = new Vector<>();
         for (byte i = 0; i < array.size(); i++) {
             StringBuilder cell = new StringBuilder("{");
@@ -54,9 +58,10 @@ public class MapController {
         }
         model.addAttribute("values_positions", cells);
 
+        //Get all minterms that need to be drawn
         VectorTerm all_minterm = new VectorTerm();
-        all_minterm.addAll(amap.compare("SOP"));
-        all_minterm.addAll(amap.compare("POS"));
+        all_minterm.addAll(amap.minimized("SOP"));
+        all_minterm.addAll(amap.minimized("POS"));
         Vector<Vector<String>> minterm_areas = new Vector<>();
         for (Term minterm : all_minterm) {
             minterm_areas.add(DrawKMap.getMintermArea(minterm));

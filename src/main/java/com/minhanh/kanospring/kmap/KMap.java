@@ -1,5 +1,6 @@
 package com.minhanh.kanospring.kmap;
 
+import java.util.Objects;
 import java.util.Vector;
 
 public class KMap extends CompareKMapTerms{
@@ -23,53 +24,80 @@ public class KMap extends CompareKMapTerms{
         zeros = getPositions(f, (byte) 0);
     }
 
-    public Vector<Byte> getOnePositions() {
-        return ones;
-    }
-    public Vector<Byte> getZeroPositions() {
-        return zeros;
+    public Vector<String> getOperators(String method) {
+        Vector<String> result = new Vector<>();
+
+        if(ones.isEmpty()) {
+            result.add("0");
+        } else if(zeros.isEmpty()) {
+            result.add("1");
+        } else {
+            VectorTerm terms = minimized(method);
+            for (Term term : terms)  result.add(operator(term, method));
+        }
+
+        return result;
     }
 
-    public Vector<Byte> getValue() {
-        return f;
+    public Vector<Vector<String>> solution(String method) {
+        Vector<Vector<String>> result = new Vector<>();
+
+        if (ones.isEmpty() || zeros.isEmpty()) return null;
+
+        VectorTerm terms = minimized(method);
+        for (Term term : terms) result.add(step(term, method));
+
+        return result;
     }
 
-    public Vector<String> getTableHeaders() {
-        Vector<String> head = new Vector<>();
-        switch (type) {
-            case 2 -> {
-                head.add("A");
-                head.add("B");
-                head.add("f (A, B)");
+    private String operator(Term term, String method) {
+        StringBuilder operator = new StringBuilder();
+        //minterms loop
+        for(byte i = 0; i < term.size(); i++) {
+            int digit = i + 65;
+
+            //dashed minterms
+            if(term.get(i) == 0) {
+                operator.append((char) digit); //add minterm
+                if (Objects.equals(method, "SOP")) operator.append((char) 39);    //add dash
+                else if (method.equals("POS")) operator.append("+");
             }
-            case 3 -> {
-                head.add("A");
-                head.add("B");
-                head.add("C");
-                head.add("f (A, B, C)");
-            }
-            case 4 -> {
-                head.add("A");
-                head.add("B");
-                head.add("C");
-                head.add("D");
-                head.add("f (A, B, C, D)");
+            //undashed minterms
+            if(term.get(i) == 1) {
+                operator.append((char) digit); //add minterm
+                if (Objects.equals(method, "POS")) {
+                    operator.append((char) 39);
+                    operator.append("+");
+                }
             }
         }
-        return head;
+        if (method.equals("POS")) operator.deleteCharAt(operator.length() - 1);
+        return String.valueOf(operator);
     }
 
-    public Vector<Vector<Byte>> getTableElements() {
-        Vector<Vector<Byte>> elements = new Vector<>();
-        for (byte i = 0; i < size; i++) {
-            byte x = i;
-            Vector<Byte> row = new Vector<>();
-            for (byte j = 0; j < type; j++) {
-                row.add(0, (byte) (x%2));
-                x = (byte) (x / 2);
+    private Vector<String> step(Term term, String method) {
+        Vector<String> result = new Vector<>();
+        for (int i = 0; i < term.size(); i++) {
+            int digit = i + 65;
+            StringBuilder line = new StringBuilder(" - ");
+            line.append((char) digit);
+
+            if (term.get(i) == 0) {
+                line.append(" : не изменилось значение 0 | ");
+                line.append((char) digit);
+                if (method.equals("SOP")) line.append((char) 39);
+            } else if (term.get(i) == 1) {
+                line.append(" : не изменилось значение 1 | ");
+                line.append((char) digit);
+                if (method.equals("POS")) line.append((char) 39);
+            }else if (term.get(i) == -1) {
+                line.append(" : изменилось значение.");
             }
-            elements.add(row);
+            result.add(String.valueOf(line));
         }
-        return elements;
+        String operator = "Оператор : " + operator(term, method);
+        result.add(operator);
+
+        return result;
     }
 }

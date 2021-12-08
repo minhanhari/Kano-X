@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 public class DrawKMap extends KMap {
+    /** Return coordinate on a canvas of a numeric position */
     public static HashMap<String,Byte> getCoordinates(byte number) {
         HashMap<String,Byte> coordinates = new HashMap<>();
 
@@ -21,6 +22,7 @@ public class DrawKMap extends KMap {
         return coordinates;
     }
 
+    /** Return area that need to be group */
     public static Vector<String> getMintermArea(Term minterm) {
         Vector<String> all_areas = new Vector<>();
 
