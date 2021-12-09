@@ -4,14 +4,7 @@ import java.util.Objects;
 import java.util.Vector;
 
 public class CompareKMapTerms extends SetKMap{
-
-    /**
-     * Function minimize process by:
-     * 1- compare terms with "compare" Function
-     * 2- Represent comparelification as alphabetical terms with 'operator'
-     * 3- Get solutions with 'solution' and 'step'
-     */
-
+    /** Function minimize process */
     public VectorTerm minimized(String method){
         Vector<Byte> positions;
         if (method.equals("SOP")) positions = ones;

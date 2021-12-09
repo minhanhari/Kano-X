@@ -17,10 +17,8 @@ public class ValuesController {
 
     @PostMapping("/set-map")
     public String inputTable(@RequestParam("variable_number") byte variable_number, ModelMap model) {
-        KMap amap = new KMap(variable_number);
-        variablesNumberView(model);
-        model.addAttribute("type", amap.type);
+        model.addAttribute("type", variable_number);
 
-        return "setmap";
+        return variablesNumberView(model);
     }
 }

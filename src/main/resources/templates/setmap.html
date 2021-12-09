@@ -18,7 +18,7 @@
             <h4 class="border-bottom"><label>Количество переменных:</label></h4>
             <div th:each="num : ${numbers}" class="form-check">
                 <input class="form-check-input" type="radio" name="variable_number" th:value="${num}"
-                       required/><label class="form-check-label" th:text="${num}"></label>
+                    th:checked="${num} == ${type}" required/><label class="form-check-label" th:text="${num}"></label>
             </div>
         </div>
         <div id="input-func-value" class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4"></div>

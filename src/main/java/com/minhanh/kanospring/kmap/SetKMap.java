@@ -19,7 +19,7 @@ public class SetKMap {
         return positions;
     }
 
-    /** Convert a numeric position to term */
+    /** Convert numeric positions to term */
     protected VectorTerm getTerms(Vector<Byte> positions) {
         VectorTerm terms = new VectorTerm();
 
