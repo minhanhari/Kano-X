@@ -3,10 +3,8 @@ package com.minhanh.kanospring.controllers;
 import java.util.Map;
 import java.util.Vector;
 
-import com.minhanh.kanospring.kmap.DrawKMap;
-import com.minhanh.kanospring.kmap.KMap;
-import com.minhanh.kanospring.kmap.VectorTerm;
-import com.minhanh.kanospring.kmap.Term;
+import com.minhanh.kanospring.kmap.*;
+import com.minhanh.kanospring.term.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,10 +33,10 @@ public class MapController {
 
         amap.setValue(array);;
 
-        model.addAttribute("SOP_solution", amap.solution("SOP"));
+        model.addAttribute("SOP_solution", amap.getSolutions("SOP"));
         model.addAttribute("SOP_operators", amap.getOperators("SOP"));
 
-        model.addAttribute("POS_solution", amap.solution("POS"));
+        model.addAttribute("POS_solution", amap.getSolutions("POS"));
         model.addAttribute("POS_operators", amap.getOperators("POS"));
 
         //For drawing KMap

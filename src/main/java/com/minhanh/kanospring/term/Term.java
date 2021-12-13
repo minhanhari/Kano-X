@@ -1,6 +1,5 @@
-package com.minhanh.kanospring.kmap;
+package com.minhanh.kanospring.term;
 
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -15,7 +14,7 @@ public class Term extends Vector<Integer> {
     }
 
     /** Return term from number */
-    static Term toTerm(int number, int map_type) {
+    public static Term toTerm(int number, int map_type) {
         Term result = new Term();
         int x = number;
         for (byte j = 0; j < map_type; j++) {

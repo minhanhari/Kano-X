@@ -1,9 +1,11 @@
 package com.minhanh.kanospring.kmap;
 
+import com.minhanh.kanospring.term.*;
+
 import java.util.HashMap;
 import java.util.Vector;
 
-public class DrawKMap extends KMap {
+public class DrawKMap extends CompareKMapTerms {
     /** Return coordinate on a canvas of a numeric position */
     public static HashMap<String,Byte> getCoordinates(byte number) {
         HashMap<String,Byte> coordinates = new HashMap<>();

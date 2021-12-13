@@ -1,6 +1,5 @@
 package com.minhanh.kanospring.controllers;
 
-import com.minhanh.kanospring.kmap.KMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;

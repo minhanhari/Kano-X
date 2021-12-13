@@ -1,5 +1,7 @@
 package com.minhanh.kanospring.kmap;
 
+import com.minhanh.kanospring.term.*;
+
 import java.util.Vector;
 
 public class SetKMap {

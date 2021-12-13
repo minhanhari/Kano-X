@@ -1,13 +1,12 @@
 package com.minhanh.kanospring.kmap;
 
+import com.minhanh.kanospring.term.*;
+
 import java.util.Objects;
 import java.util.Vector;
 
 public class KMap extends CompareKMapTerms{
-    private byte size;
-    private Vector<Byte> f;
-
-    public KMap () {}
+    private final byte size;
 
     public KMap(byte _type) {
         type = _type;
@@ -19,9 +18,8 @@ public class KMap extends CompareKMapTerms{
     }
 
     public void setValue(Vector<Byte> value_list) {
-        f = value_list;
-        ones = getPositions(f, (byte) 1);
-        zeros = getPositions(f, (byte) 0);
+        ones = getPositions(value_list, (byte) 1);
+        zeros = getPositions(value_list, (byte) 0);
     }
 
     public Vector<String> getOperators(String method) {
@@ -35,17 +33,6 @@ public class KMap extends CompareKMapTerms{
             VectorTerm terms = minimized(method);
             for (Term term : terms)  result.add(operator(term, method));
         }
-
-        return result;
-    }
-
-    public Vector<Vector<String>> solution(String method) {
-        Vector<Vector<String>> result = new Vector<>();
-
-        if (ones.isEmpty() || zeros.isEmpty()) return null;
-
-        VectorTerm terms = minimized(method);
-        for (Term term : terms) result.add(step(term, method));
 
         return result;
     }
@@ -75,7 +62,18 @@ public class KMap extends CompareKMapTerms{
         return String.valueOf(operator);
     }
 
-    private Vector<String> step(Term term, String method) {
+    public Vector<Vector<String>> getSolutions(String method) {
+        Vector<Vector<String>> result = new Vector<>();
+
+        if (ones.isEmpty() || zeros.isEmpty()) return null;
+
+        VectorTerm terms = minimized(method);
+        for (Term term : terms) result.add(solution(term, method));
+
+        return result;
+    }
+
+    private Vector<String> solution(Term term, String method) {
         Vector<String> result = new Vector<>();
         for (int i = 0; i < term.size(); i++) {
             int digit = i + 65;

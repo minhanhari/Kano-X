@@ -1,5 +1,7 @@
 package com.minhanh.kanospring.kmap;
 
+import com.minhanh.kanospring.term.*;
+
 import java.util.Objects;
 import java.util.Vector;
 
