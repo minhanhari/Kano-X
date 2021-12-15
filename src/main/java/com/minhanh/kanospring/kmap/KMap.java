@@ -43,14 +43,12 @@ public class KMap extends CompareKMapTerms{
         for(byte i = 0; i < term.size(); i++) {
             int digit = i + 65;
 
-            //dashed minterms
             if(term.get(i) == 0) {
                 operator.append((char) digit); //add minterm
                 if (Objects.equals(method, "SOP")) operator.append((char) 39);    //add dash
                 else if (method.equals("POS")) operator.append("+");
             }
-            //undashed minterms
-            if(term.get(i) == 1) {
+            else if(term.get(i) == 1) {
                 operator.append((char) digit); //add minterm
                 if (Objects.equals(method, "POS")) {
                     operator.append((char) 39);
@@ -88,9 +86,9 @@ public class KMap extends CompareKMapTerms{
                 line.append(" : не изменилось значение 1 | ");
                 line.append((char) digit);
                 if (method.equals("POS")) line.append((char) 39);
-            }else if (term.get(i) == -1) {
+            } else if (term.get(i) == -1) {
                 line.append(" : изменилось значение.");
-            }
+            } else continue;
             result.add(String.valueOf(line));
         }
         String operator = "Оператор : " + operator(term, method);

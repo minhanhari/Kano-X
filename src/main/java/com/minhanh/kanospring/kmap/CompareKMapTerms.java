@@ -16,27 +16,27 @@ public class CompareKMapTerms extends SetKMap{
 
         //compare loop
         //temporary variables
-        for(byte temp3 = 0; temp3 < type && result.size() > 1; temp3++) {
+        for(byte i = 0; i < type && result.size() > 1; i++) {
             VectorTerm saver = new VectorTerm();    //save similarity
             //initializing has compared with false
             Vector<Boolean> has_compare = new Vector<>();
-            for (int i = 0; i < result.size(); i++) {
+            for (int j = 0; j < result.size(); j++) {
                 has_compare.add(false);
             }
             //do essential minimizations
-            for(byte temp = 0; temp < result.size(); temp++){
+            for (byte temp = 0; temp < result.size(); temp++){
                 for (byte temp1 = (byte) (temp + 1); temp1 < result.size(); temp1++) {
                     Vector<Integer> temp_save = new Vector<>();
                     ////////element's loop/////////////////
-                    for (byte temp2 = 0; temp2 < type; temp2++) {
+                    for (int num = 0; num < type; num++) {
                         //searching for identical coordinate and save its arrangement in temp_save
                         //temp and temp1 cover terms
-                        //temp2 cover coordinates
-                        if(Objects.equals(result.get(temp).get(temp2), result.get(temp1).get(temp2))) {
-                            temp_save.add((int) temp2);
+                        //num cover coordinates
+                        if (Objects.equals(result.get(temp).get(num), result.get(temp1).get(num))) {
+                            temp_save.add(num);
                         }
                     }
-                    if(temp_save.size() == type - 1) {
+                    if (temp_save.size() == type - 1) {
                         saver.add(minterm(temp_save, result.get(temp)));
                         has_compare.set(temp,true);
                         has_compare.set(temp1,true);
@@ -58,18 +58,18 @@ public class CompareKMapTerms extends SetKMap{
         Term minterm = new Term();
 
         /*set nonidentical arrangements after getting identical arrangements*/
-        for(byte i = 0; i < term.size(); i++) {
+        for (byte i = 0; i < term.size(); i++) {
             //switch value locates after matching coordinates
-            if(i == temp_save.size())
+            if (i == temp_save.size())
                 temp_save.add(-1);
             //switch value locates between matching coordinates
-            else if(i != temp_save.get(i))
+            else if (i != temp_save.get(i))
                 temp_save.add(i,-1);
         }
 
         /* convert identical coordinates from its arrangement to its values */
-        for(byte i = 0; i < temp_save.size(); i++) {
-            if(temp_save.get(i).equals(-1)) minterm.add(-1);
+        for (byte i = 0; i < temp_save.size(); i++) {
+            if (temp_save.get(i).equals(-1)) minterm.add(-1);
             else minterm.add(term.get(i));
         }//end saver for
 
@@ -79,8 +79,8 @@ public class CompareKMapTerms extends SetKMap{
     /** Add not compared terms to terms */
     private VectorTerm leftoverTerms(VectorTerm terms, Vector<Boolean> hascompare) {
         VectorTerm leftover_terms = new VectorTerm();
-        for(int i = 0; i < terms.size(); i++) {
-            if(!hascompare.get(i))  leftover_terms.add(terms.get(i));
+        for (int i = 0; i < terms.size(); i++) {
+            if (!hascompare.get(i))  leftover_terms.add(terms.get(i));
         }
         return leftover_terms;
     }

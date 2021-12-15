@@ -7,11 +7,11 @@ import java.util.Vector;
 
 public class DrawKMap extends CompareKMapTerms {
     /** Return coordinate on a canvas of a numeric position */
-    public static HashMap<String,Byte> getCoordinates(byte number) {
-        HashMap<String,Byte> coordinates = new HashMap<>();
+    public static HashMap<String,Integer> getCoordinates(byte number) {
+        HashMap<String,Integer> coordinates = new HashMap<>();
 
-        byte row = (byte) (number / 4);
-        byte collum = (byte) (number % 4);
+        int row = number / 4;
+        int collum = number % 4;
 
         if (row == 3) row = 2;
         else if (row == 2) row = 3;
@@ -48,12 +48,12 @@ public class DrawKMap extends CompareKMapTerms {
             }
         }
         for (int i = 0; i < terms.size(); i++) {
-            HashMap<String,Byte> begin = new HashMap<>();
-            begin.put("x", (byte) 3); begin.put("y", (byte) 3);
-            HashMap<String,Byte> end = new HashMap<>();
-            end.put("x", (byte) 0); end.put("y", (byte) 0);
+            HashMap<String,Integer> begin = new HashMap<>();
+            begin.put("x", 3); begin.put("y", 3);
+            HashMap<String,Integer> end = new HashMap<>();
+            end.put("x", 0); end.put("y", 0);
             for (Term term : terms.get(i).extract()) {
-                HashMap<String, Byte> coor = getCoordinates(term.toNumber());
+                HashMap<String,Integer> coor = getCoordinates(term.toNumber());
                 if (coor.get("x") <= begin.get("x") && coor.get("y") <= begin.get("y")) begin = coor;
                 if (coor.get("x") >= end.get("x") && coor.get("y") >= end.get("y")) end = coor;
             }

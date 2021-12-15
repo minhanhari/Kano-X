@@ -25,7 +25,7 @@ public class SetKMap {
     protected VectorTerm getTerms(Vector<Byte> positions) {
         VectorTerm terms = new VectorTerm();
 
-        for(byte a : positions) {
+        for (byte a : positions) {
             terms.add(Term.toTerm(a, type));
         }
         return terms;

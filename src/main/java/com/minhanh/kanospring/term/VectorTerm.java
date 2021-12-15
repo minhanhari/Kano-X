@@ -6,9 +6,9 @@ import java.util.Vector;
 public class VectorTerm extends Vector<Term> {
 
     public void removeDuplicate() {
-        for(int temp = 0; temp < this.size(); temp ++)
-            for(int temp1 = temp + 1 ; temp1 < this.size(); temp1++)
-                if(Objects.equals(this.get(temp), this.get(temp1))) {
+        for (int temp = 0; temp < this.size(); temp ++)
+            for (int temp1 = temp + 1 ; temp1 < this.size(); temp1++)
+                if (Objects.equals(this.get(temp), this.get(temp1))) {
                     this.remove(temp1);
                     temp1--;
                 }
